@@ -5,21 +5,28 @@ pygame.init()
 window = pygame.display.set_mode((300, 300))
 clock = pygame.time.Clock()
 
+# Creates the players squares (Should attach to the player themselves)
 rect1 = pygame.Rect(0, 0, 20, 20)
-
 rect2 = pygame.Rect(0, 0, 20, 20)
 
+# Creates the player
 player1 = Player(pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d)
 player2 = Player(pygame.K_UP,pygame.K_LEFT,pygame.K_DOWN,pygame.K_RIGHT)
 
+# Gameloop
 run = True
 while run:
     clock.tick(60)
+
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+    
+    # Get a bool of every key pressed
     keys = pygame.key.get_pressed()
     
+    # Check player movement (need to make this a for loop)
     player1.check_movement(keys)
     player2.check_movement(keys)
 
