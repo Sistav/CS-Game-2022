@@ -18,12 +18,7 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-            
-        if event.type == pygame.KEYDOWN:
-            print(pygame.key.name(event.key))
-
     keys = pygame.key.get_pressed()
-    
     
     player1.check_movement(keys)
     player2.check_movement(keys)
@@ -41,7 +36,7 @@ while run:
     rect2.centery = rect2.centery % window.get_height()
 
     window.fill(0)
-    
+
     pygame.draw.rect(window, (0, 0, 255), rect1)
     pygame.draw.rect(window, (255, 0, 0), rect2)
 
