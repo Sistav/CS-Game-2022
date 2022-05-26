@@ -1,5 +1,6 @@
 import pygame
 import math
+import bullet
 class Player:
     players = []
     def __init__(self,movement,shoot,aim,color):
@@ -33,6 +34,9 @@ class Player:
         # Set sprite and sprite color
         # self.sprite = pygame.circle(, 40, 40)
         self.color = color
+
+        self.shot_delay = 10
+        self.last_shot = - self.shot_delay
     
     def check_movement(self,keys,window):
             # if keys[self.left]:   
@@ -64,10 +68,15 @@ class Player:
         # pygame.draw.rect(window,self.color,)
         
         rad_angle = self.angle * math.pi / 180
-        self.cannon_end_x =  self.x + (self.cannon_length * math.cos(rad_angle))
-        self.cannon_end_y =  self.y + (self.cannon_length * math.sin(rad_angle))
+        self.cannon_end_x =  (self.x + (self.cannon_length * math.cos(rad_angle)))
+        self.cannon_end_y =  (self.y + -(self.cannon_length * math.sin(rad_angle)))
         pygame.draw.circle(window,self.color,(self.x, self.y),self.radius)
 
         pygame.draw.circle(window,self.color,(self.cannon_end_x, self.cannon_end_y),self.cannon_width)
         pygame.draw.line(window,self.color,(self.x, self.y), (self.cannon_end_x, self.cannon_end_y),self.cannon_width)
-        
+
+    def check_shot(self,keys,clock_cycle):
+        if keys[self.shoot]:
+            if  self.last_shot + self.shot_delay < clock_cycle :
+                self.last_shot = clock_cycle
+                bullet.Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
