@@ -1,20 +1,19 @@
 import pygame
 from player import *
 
+
 pygame.init()
 window = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 
-# Creates the players squares (Should attach to the player themselves)
-rect1 = pygame.Rect(0, 0, 20, 20)
-rect2 = pygame.Rect(0, 0, 20, 20)
 
 # Creates the players
 player1_movement = [pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d]
 player2_movement = [pygame.K_UP,pygame.K_LEFT,pygame.K_DOWN,pygame.K_RIGHT]
 
-player1 = Player(player1_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],rect1,(255, 0, 0))
-player2 = Player(player2_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],rect2,(0, 0, 255))
+
+player1 = Player(player1_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],(255, 0, 0))
+player2 = Player(player2_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],(0, 0, 255))
 
 
 # Gameloop
@@ -25,7 +24,7 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-    
+        # print(event.type)
     # Get a bool of every key pressed
     keys = pygame.key.get_pressed()
     
@@ -42,7 +41,7 @@ while run:
     
     # rect(window, (0, 0, 255), rect1)
     # pygame.draw.rect(window, (255, 0, 0), rect2)
-    # pygame.draw.line(window, (100, 100, 255), (rect1.centerx, rect1.centery), (rect2.centerx, rect2.centery), 8) 
+    # pygame.draw.line(window, (100, 100, 255), (player1.sprite.centerx, player1.sprite.centery), (player2.sprite.centerx, player2.sprite.centery), 8) 
 
     # Render it
     pygame.display.flip()

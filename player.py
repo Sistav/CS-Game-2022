@@ -1,7 +1,8 @@
 import pygame
+import math
 class Player:
     players = []
-    def __init__(self,movement,shoot,aim,sprite,color):
+    def __init__(self,movement,shoot,aim,color):
         Player.players.append(self)
 
         # Set Movement Controls
@@ -21,9 +22,16 @@ class Player:
         # Set starting position
         self.x = 10 
         self.y = 10
-        
+
+        self.angle = 180 
+        self.aim_speed = 1/50
+
+        self.radius = 20        
+        self.cannon_length = 50
+        self.cannon_width = 10
+
         # Set sprite and sprite color
-        self.sprite = sprite
+        # self.sprite = pygame.circle(, 40, 40)
         self.color = color
     
     def check_movement(self,keys,window):
@@ -36,18 +44,26 @@ class Player:
             # if keys[self.down]:
             #     self.y += self.velocity
 
-            self.sprite.x += self.velocity * (keys[self.right] - keys[self.left])
-            self.sprite.y += self.velocity * (keys[self.down] - keys[self.up])
+            self.x += self.velocity * (keys[self.right] - keys[self.left])
+            self.y += self.velocity * (keys[self.down] - keys[self.up])
 
+            self.angle += self.aim_speed * (keys[self.aim_right] - keys[self.aim_left])
+
+            print(self.angle)
             # self.sprite.x = self.x
             # y = self.y
-                
             # Create Wrapping Effect
-            self.sprite.centerx = self.sprite.centerx % window.get_width()
-            self.sprite.centery = self.sprite.centery % window.get_height()
+            self.x = self.x % window.get_width()
+            self.y = self.y % window.get_height()
 
     def draw(self,window):
-        pygame.draw.rect(window,self.color,self.sprite)
+        # pygame.draw.rect(window,self.color,)
+        
 
-        # Use this to create cannon's angle
-        # https://math.stackexchange.com/questions/105770/find-the-slope-of-a-line-given-a-point-and-an-angle
+        self.cannon_end_x =  self.x + (self.cannon_length * math.cos(self.angle))
+        self.cannon_end_y =  self.y + (self.cannon_length * math.sin(self.angle))
+        pygame.draw.circle(window,self.color,(self.x, self.y),self.radius)
+
+        pygame.draw.circle(window,self.color,(self.cannon_end_x, self.cannon_end_y),self.cannon_width)
+        pygame.draw.line(window,self.color,(self.x, self.y), (self.cannon_end_x, self.cannon_end_y),self.cannon_width)
+        
