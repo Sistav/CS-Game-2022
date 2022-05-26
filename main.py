@@ -5,7 +5,10 @@ from bullet import *
 pygame.init()
 window = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
+pygame.display.set_caption('Tank Game')
 
+background_color = (0,0,0)
+text_color = (255,255,255)
 
 # Creates the players
 player1_movement = [pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d]
@@ -31,6 +34,21 @@ while run:
     clock.tick(tickrate)
     clock_cycle += 1
 
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    
+    # create a text surface object,
+    # on which text is drawn on it.
+    text = font.render('Score', True, text_color, background_color)
+    
+    # create a rectangular object for the
+    # text surface object
+    textRect = text.get_rect()
+    
+    # set the center of the rectangular object.
+    textRect.center = (window.get_width()//2,32)
+
+
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -42,6 +60,7 @@ while run:
     for i in range(len(Player.players)):
         Player.players[i].check_movement(keys,window)
         Player.players[i].check_shot(keys,clock_cycle)
+        Player.players[i].check_colliosion()
     
     
     bullet_index = 0
@@ -59,6 +78,7 @@ while run:
     # Make the background Black
     window.fill((0,0,0))
 
+
     # Draw out each player's sprite 
     for i in range(len(Player.players)):
         Player.players[i].draw(window)
@@ -67,6 +87,7 @@ while run:
     for i in range(len(Bullet.bullets)):
         Bullet.bullets[i].draw(window)
        
+    window.blit(text, textRect)
 
     # Render it
     pygame.display.flip()

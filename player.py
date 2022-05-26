@@ -1,6 +1,6 @@
 import pygame
 import math
-import bullet
+from bullet import *
 class Player:
     players = []
     def __init__(self,movement,shoot,aim,color):
@@ -60,6 +60,15 @@ class Player:
             self.x = self.x % window.get_width()
             self.y = self.y % window.get_height()
 
+    def check_colliosion(self):
+        for i in range(len(Bullet.bullets)):
+            distance = (Bullet.bullets[i].x - self.x) ** 2 + (Bullet.bullets[i].y - self.y) ** 2;
+            radius = (Bullet.bullets[i].radius + self.radius) ** 2;
+            if (distance <= radius):
+                print("HIT")
+            
+                
+
     def draw(self,window):
         # pygame.draw.rect(window,self.color,)
         # Calculate where the cannon ends
@@ -79,4 +88,4 @@ class Player:
             # If enough time has past since last shot, shoot
             if  self.last_shot + self.shot_delay < clock_cycle :
                 self.last_shot = clock_cycle
-                bullet.Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
+                Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
