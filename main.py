@@ -12,6 +12,7 @@ rect2 = pygame.Rect(0, 0, 20, 20)
 # Creates the players
 player1_movement = [pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d]
 player2_movement = [pygame.K_UP,pygame.K_LEFT,pygame.K_DOWN,pygame.K_RIGHT]
+
 player1 = Player(player1_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],rect1,(255, 0, 0))
 player2 = Player(player2_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],rect2,(0, 0, 255))
 

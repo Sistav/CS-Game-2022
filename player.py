@@ -48,3 +48,6 @@ class Player:
 
     def draw(self,window):
         pygame.draw.rect(window,self.color,self.sprite)
+
+        # Use this to create cannon's angle
+        # https://math.stackexchange.com/questions/105770/find-the-slope-of-a-line-given-a-point-and-an-angle
