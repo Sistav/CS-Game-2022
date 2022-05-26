@@ -2,7 +2,7 @@ import pygame
 from player import *
 
 pygame.init()
-window = pygame.display.set_mode((300, 300))
+window = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 
 # Creates the players squares (Should attach to the player themselves)
