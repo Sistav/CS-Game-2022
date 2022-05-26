@@ -1,6 +1,6 @@
 import pygame
 from player import *
-
+from bullet import *
 
 pygame.init()
 window = pygame.display.set_mode((1280, 720))
@@ -18,9 +18,13 @@ player2 = Player(player2_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],(0, 0, 
 
 # Gameloop
 run = True
-while run:
-    clock.tick(60)
+tickrate = 60
+clock_cycle = 0
 
+
+while run:
+    clock.tick(tickrate)
+    clock_cycle += 1
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -31,15 +35,29 @@ while run:
     # Check player movement (need to make this a for loop)
     for i in range(len(Player.players)):
         Player.players[i].check_movement(keys,window)
+        Player.players[i].check_shot(keys,clock_cycle)
+    
+    bullet_index = 0
+    while bullet_index < len(Bullet.bullets):
+        if (Bullet.bullets[bullet_index].spawn_tick + Bullet.bullets[bullet_index].lifetime) < clock_cycle:
+            del Bullet.bullets[bullet_index]
+        else:
+            Bullet.bullets[bullet_index].move(window,clock_cycle)
+            bullet_index += 1 
 
+        
     # Make the background Black
     window.fill((0,0,0))
 
-    # Draw out each player's sprite
+    # Draw out each player's sprite 
     for i in range(len(Player.players)):
         Player.players[i].draw(window)
     
-    # rect(window, (0, 0, 255), rect1)
+    
+    for i in range(len(Bullet.bullets)):
+        Bullet.bullets[i].draw(window)
+       
+    # rect(window, (0, 0, 255), rect1)1
     # pygame.draw.rect(window, (255, 0, 0), rect2)
     # pygame.draw.line(window, (100, 100, 255), (player1.sprite.centerx, player1.sprite.centery), (player2.sprite.centerx, player2.sprite.centery), 8) 
 
