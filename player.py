@@ -47,8 +47,12 @@ class Player:
             self.x += self.velocity * (keys[self.right] - keys[self.left])
             self.y += self.velocity * (keys[self.down] - keys[self.up])
 
-            self.angle += self.aim_speed * (keys[self.aim_right] - keys[self.aim_left])
+            self.angle += self.aim_speed * (keys[self.aim_left] - keys[self.aim_right]) 
 
+            if self.angle < 0:
+                self.angle += 360 
+            elif self.angle > 360:
+                self.angle %= 360
             print(self.angle)
             # self.sprite.x = self.x
             # y = self.y
