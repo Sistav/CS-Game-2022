@@ -4,24 +4,26 @@ class Player:
     def __init__(self,movement,shoot,aim,sprite,color):
         Player.players.append(self)
 
+        # Set Movement Controls
         self.up = movement[0]
         self.left = movement[1]
         self.down = movement[2]
         self.right = movement[3]
 
-
+        # Set aim and shoot controls
         self.aim_right = aim[0]
         self.aim_left = aim[1]
-
         self.shoot = shoot
     
-
+        # Set Players velocity
         self.velocity = 5
+
+        # Set starting position
         self.x = 10 
         self.y = 10
         
+        # Set sprite and sprite color
         self.sprite = sprite
-
         self.color = color
     
     def check_movement(self,keys,window):
@@ -40,6 +42,7 @@ class Player:
             # self.sprite.x = self.x
             # y = self.y
                 
+            # Create Wrapping Effect
             self.sprite.centerx = self.sprite.centerx % window.get_width()
             self.sprite.centery = self.sprite.centery % window.get_height()
 
