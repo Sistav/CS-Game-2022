@@ -13,7 +13,7 @@ player2_movement = [pygame.K_UP,pygame.K_LEFT,pygame.K_DOWN,pygame.K_RIGHT]
 
 
 player1 = Player(player1_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],(255, 0, 0))
-player2 = Player(player2_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],(0, 0, 255))
+player2 = Player(player2_movement,pygame.K_SLASH,[pygame.K_COMMA,pygame.K_PERIOD],(0, 0, 255))
 
 
 # Gameloop
@@ -52,7 +52,7 @@ while run:
             del Bullet.bullets[bullet_index]
         else:
             # otherwise have it move accordingly and move onto the next bullet
-            Bullet.bullets[bullet_index].move(window,clock_cycle)
+            Bullet.bullets[bullet_index].move(window)
             bullet_index += 1 
 
         
