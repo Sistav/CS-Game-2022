@@ -9,12 +9,10 @@ clock = pygame.time.Clock()
 rect1 = pygame.Rect(0, 0, 20, 20)
 rect2 = pygame.Rect(0, 0, 20, 20)
 
-# Creates the player
 # Creates the players
 player1 = Player([pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d],pygame.K_SPACE,[pygame.K_e,pygame.K_q],rect1,(255, 0, 0))
 player2 = Player([pygame.K_UP,pygame.K_LEFT,pygame.K_DOWN,pygame.K_RIGHT],pygame.K_SPACE,[pygame.K_e,pygame.K_q],rect2,(0, 0, 255))
 
-# player2 = Player()
 
 # Gameloop
 run = True
