@@ -44,4 +44,4 @@ class Player:
             self.sprite.centery = self.sprite.centery % window.get_height()
 
     def draw(self,window):
-        pygame.draw.rect(window,self.coloself.spriter)
+        pygame.draw.rect(window,self.color,self.sprite)
