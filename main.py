@@ -10,6 +10,8 @@ pygame.display.set_caption('Tank Game')
 background_color = (0,0,0)
 text_color = (255,255,255)
 
+fontsize = 32 
+
 # Creates the players
 player1_movement = [pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d]
 player2_movement = [pygame.K_UP,pygame.K_LEFT,pygame.K_DOWN,pygame.K_RIGHT]
@@ -34,7 +36,7 @@ while run:
     clock.tick(tickrate)
     clock_cycle += 1
 
-    font = pygame.font.Font('freesansbold.ttf', 32)
+    font = pygame.font.Font('freesansbold.ttf', fontsize)
     
     # create a text surface object,
     # on which text is drawn on it.
@@ -45,7 +47,7 @@ while run:
     textRect = text.get_rect()
     
     # set the center of the rectangular object.
-    textRect.center = (window.get_width()//2,32)
+    textRect.center = (window.get_width()//2,fontsize)
 
 
 
