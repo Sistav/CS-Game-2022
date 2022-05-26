@@ -23,8 +23,8 @@ class Player:
         self.x = 10 
         self.y = 10
 
-        self.angle = 180 
-        self.aim_speed = 1/50
+        self.angle = 0 
+        self.aim_speed = 1
 
         self.radius = 20        
         self.cannon_length = 50
@@ -59,9 +59,9 @@ class Player:
     def draw(self,window):
         # pygame.draw.rect(window,self.color,)
         
-
-        self.cannon_end_x =  self.x + (self.cannon_length * math.cos(self.angle))
-        self.cannon_end_y =  self.y + (self.cannon_length * math.sin(self.angle))
+        rad_angle = self.angle * math.pi / 180
+        self.cannon_end_x =  self.x + (self.cannon_length * math.cos(rad_angle))
+        self.cannon_end_y =  self.y + (self.cannon_length * math.sin(rad_angle))
         pygame.draw.circle(window,self.color,(self.x, self.y),self.radius)
 
         pygame.draw.circle(window,self.color,(self.cannon_end_x, self.cannon_end_y),self.cannon_width)
