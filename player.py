@@ -41,6 +41,8 @@ class Player:
 
         # Set beginning delay (negative shot delay lets players fire immediately)
         self.last_shot = -self.shot_delay
+
+        self.score = 0
     
     def check_movement(self,keys,window):
             # Basic Movement controls
@@ -61,11 +63,15 @@ class Player:
             self.y = self.y % window.get_height()
 
     def check_colliosion(self):
-        for i in range(len(Bullet.bullets)):
-            distance = (Bullet.bullets[i].x - self.x) ** 2 + (Bullet.bullets[i].y - self.y) ** 2;
-            radius = (Bullet.bullets[i].radius + self.radius) ** 2;
+        bullet_index = 0
+        while bullet_index < len(Bullet.bullets):
+            distance = (Bullet.bullets[bullet_index].x - self.x) ** 2 + (Bullet.bullets[bullet_index].y - self.y) ** 2;
+            radius = (Bullet.bullets[bullet_index].radius + self.radius) ** 2;
             if (distance <= radius):
                 print("HIT")
+                del Bullet.bullets[bullet_index]
+            else:
+                bullet_index += 1 
             
                 
 
