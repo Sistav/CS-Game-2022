@@ -24,59 +24,59 @@ class Player:
         self.x = 10 
         self.y = 10
 
+        # Set default angle and turn speed 
         self.angle = 0 
         self.aim_speed = 1
 
+        # Set Size for player sprites
         self.radius = 20        
         self.cannon_length = 50
         self.cannon_width = 10
 
-        # Set sprite and sprite color
-        # self.sprite = pygame.circle(, 40, 40)
+        # Set sprite color
         self.color = color
 
+        # Set how often a bullet can fire (in frames)
         self.shot_delay = 10
-        self.last_shot = - self.shot_delay
+
+        # Set beginning delay (negative shot delay lets players fire immediately)
+        self.last_shot = -self.shot_delay
     
     def check_movement(self,keys,window):
-            # if keys[self.left]:   
-            #     self.x -= self.velocity
-            # if keys[self.right]:
-            #     self.x += self.velocity
-            # if keys[self.up]:
-            #     self.y -= self.velocity
-            # if keys[self.down]:
-            #     self.y += self.velocity
-
+            # Basic Movement controls
             self.x += self.velocity * (keys[self.right] - keys[self.left])
             self.y += self.velocity * (keys[self.down] - keys[self.up])
 
+            # Basic Aim controls
             self.angle += self.aim_speed * (keys[self.aim_left] - keys[self.aim_right]) 
 
+            # Make sure that angle is between 0 and 359 for consistancy.
             if self.angle < 0:
                 self.angle += 360 
             elif self.angle > 360:
                 self.angle %= 360
-            print(self.angle)
-            # self.sprite.x = self.x
-            # y = self.y
+
             # Create Wrapping Effect
             self.x = self.x % window.get_width()
             self.y = self.y % window.get_height()
 
     def draw(self,window):
         # pygame.draw.rect(window,self.color,)
-        
+        # Calculate where the cannon ends
         rad_angle = self.angle * math.pi / 180
         self.cannon_end_x =  (self.x + (self.cannon_length * math.cos(rad_angle)))
         self.cannon_end_y =  (self.y + -(self.cannon_length * math.sin(rad_angle)))
+        
+        # Draw Player body
         pygame.draw.circle(window,self.color,(self.x, self.y),self.radius)
 
+        # Draw cannon & cannon head
         pygame.draw.circle(window,self.color,(self.cannon_end_x, self.cannon_end_y),self.cannon_width)
         pygame.draw.line(window,self.color,(self.x, self.y), (self.cannon_end_x, self.cannon_end_y),self.cannon_width)
 
     def check_shot(self,keys,clock_cycle):
         if keys[self.shoot]:
+            # If enough time has past since last shot, shoot
             if  self.last_shot + self.shot_delay < clock_cycle :
                 self.last_shot = clock_cycle
                 bullet.Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
