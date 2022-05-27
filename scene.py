@@ -19,7 +19,6 @@ class Scene:
         rect = titlescreen.get_rect()
         rect.center = self.window.get_width() // 2, self.window.get_height() // 2
         self.window.blit(titlescreen,rect)
-        pygame.draw.rect(self.window, 'RED', rect, 1)
         if pygame.mouse.get_pressed()[0]:
             if (pygame.mouse.get_pos()[0] > 224 and pygame.mouse.get_pos()[0] < 591) and (pygame.mouse.get_pos()[1] > 448 and pygame.mouse.get_pos()[1] < 639):
                 self.mode = 1
