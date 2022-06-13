@@ -4,6 +4,7 @@ from bullet import *
 
 class Player:
     players = []
+    living_players = []
     def __init__(self,movement,shoot,aim,color):
         Player.players.append(self)
 
@@ -69,8 +70,7 @@ class Player:
                 return True
         return False
 
-        
-    def check_bullet_colliosion(self):
+    def check_bullet_collision(self):
         bullet_index = 0
         while bullet_index < len(Bullet.bullets):
             distance = (Bullet.bullets[bullet_index].x - self.x) ** 2 + (Bullet.bullets[bullet_index].y - self.y) ** 2;
@@ -80,9 +80,18 @@ class Player:
                 del Bullet.bullets[bullet_index]
             else:
                 bullet_index += 1 
-            
+   
+    def check_shot(self,keys,clock_cycle):
+        if keys[self.shoot]:
+            # If enough time has past since last shot, shoot
+            if self.last_shot + self.shot_delay < clock_cycle:
+                self.last_shot = clock_cycle
                 
-
+                spawned_bullet = Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
+                if spawned_bullet.check_if_center_is_in_a_wall():
+                    spawned_bullet.lifetime = 0
+                # If the bullet was immediatly spawned inside a will kill it
+         
     def draw(self,window):
         # pygame.draw.rect(window,self.color,)
         # Calculate where the cannon ends
@@ -97,11 +106,4 @@ class Player:
         # pygame.draw.ciarcle(window,self.color,(self.cannon_end_x, self.cannon_end_y),self.cannon_width)
         pygame.draw.line(window,self.color,(self.x, self.y), (self.cannon_end_x, self.cannon_end_y),self.cannon_width)
 
-    def check_shot(self,keys,clock_cycle):
-        if keys[self.shoot]:
-            # If enough time has past since last shot, shoot
-            if self.last_shot + self.shot_delay < clock_cycle:
-                self.last_shot = clock_cycle
-                spawned_bullet = Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
-                if spawned_bullet.check_if_center_is_in_square():
-                    spawned_bullet.lifetime = 0
+    

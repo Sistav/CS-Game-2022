@@ -68,7 +68,7 @@ class Scene:
                 Player.players[i].y = old_player_y
     
             Player.players[i].check_shot(keys,self.clock_cycle)
-            Player.players[i].check_bullet_colliosion()
+            Player.players[i].check_bullet_collision()
         
 
         bullet_index = 0

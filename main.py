@@ -22,8 +22,9 @@ tickrate = 60
 clock_cycle = 0
 
 scene_manager = Scene(1)
-song = "music_loop.wav"
 
+# Sets up the music and sets the volume to zero
+song = "music_loop.wav"
 pygame.mixer.init()
 pygame.mixer.music.load(song)
 pygame.mixer.music.play(loops=-1)
