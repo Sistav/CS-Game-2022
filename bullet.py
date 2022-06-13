@@ -41,20 +41,7 @@ class Bullet:
         wall_index = 0
         while wall_index < len(Wall.walls) - 1:
 
-            dist_x = abs(self.x - Wall.walls[wall_index].x - Wall.walls[wall_index].width/2);
-            dist_y = abs(self.y - Wall.walls[wall_index].y - Wall.walls[wall_index].length/2);
-
-            if (dist_x > (Wall.walls[wall_index].width/2 + self.radius)) or (dist_y > (Wall.walls[wall_index].length / 2 + self.radius)):
-                wall_index += 1 
-            
-            if (dist_x <= (Wall.walls[wall_index].width/2)) or (dist_y <= (Wall.walls[wall_index].length/2)): 
-                # collided
-               return True
-            
-            dx = dist_x  -Wall.walls[wall_index].width / 2
-            dy = dist_y - Wall.walls[wall_index].length / 2
-
-            if ((dx ** 2) + (dy ** 2) <= (self.radius ** 2)):
+            if (self.x > (Wall.walls[wall_index].x - self.radius) and self.x < (Wall.walls[wall_index].x + Wall.walls[wall_index].width + self.radius) and self.y >  (Wall.walls[wall_index].y - self.radius) and self.y < Wall.walls[wall_index].y + Wall.walls[wall_index].length + self.radius):
                 # collided
                 return True
 

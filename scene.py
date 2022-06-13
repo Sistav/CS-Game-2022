@@ -64,9 +64,9 @@ class Scene:
             old_player_y = Player.players[i].y
             Player.players[i].check_movement(keys,self.window)
             if Player.players[i].check_wall_collision():
-                print("wakked")
                 Player.players[i].x = old_player_x
                 Player.players[i].y = old_player_y
+
             Player.players[i].check_shot(keys,self.clock_cycle)
             Player.players[i].check_bullet_colliosion()
         
@@ -80,7 +80,8 @@ class Scene:
             else:
                 # otherwise have it move accordingly and move onto the next bullet
                 Bullet.bullets[bullet_index].move(self.window)
-                print(Bullet.bullets[bullet_index].check_wall_collision())
+                if (Bullet.bullets[bullet_index].check_wall_collision()):
+                     Bullet.bullets[bullet_index].angle = - Bullet.bullets[bullet_index].angle
                 bullet_index += 1 
 
             
