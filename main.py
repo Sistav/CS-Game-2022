@@ -22,13 +22,20 @@ tickrate = 60
 clock_cycle = 0
 
 scene_manager = Scene(1)
+song = "music_loop.wav"
+
+pygame.mixer.init()
+pygame.mixer.music.load(song)
+pygame.mixer.music.play(loops=-1)
+pygame.mixer.music.set_volume(0)
 
 run = True
 while run:
 
     clock_cycle += 1
     clock.tick(tickrate)
-
+    
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

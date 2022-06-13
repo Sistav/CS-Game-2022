@@ -40,8 +40,8 @@ class Scene:
                     
 
     def gameplay(self):
-        # Tick and add to cycle count
-
+        pygame.mixer.music.set_volume(1)
+        
         font = pygame.font.Font('freesansbold.ttf', self.fontsize)
         
         # create a text surface object,
@@ -66,7 +66,7 @@ class Scene:
             if Player.players[i].check_wall_collision():
                 Player.players[i].x = old_player_x
                 Player.players[i].y = old_player_y
-
+    
             Player.players[i].check_shot(keys,self.clock_cycle)
             Player.players[i].check_bullet_colliosion()
         
@@ -78,16 +78,25 @@ class Scene:
                 # Kill it
                 del Bullet.bullets[bullet_index]
             else:
-                # otherwise have it move accordingly and move onto the next bullet
+               
                 Bullet.bullets[bullet_index].move(self.window)
-                bounce_type = Bullet.bullets[bullet_index].check_wall_collision()
-                if (bounce_type == 1):
-                    Bullet.bullets[bullet_index].angle = - Bullet.bullets[bullet_index].angle
-                elif (bounce_type == 2):
-                    Bullet.bullets[bullet_index].angle = Bullet.bullets[bullet_index].angle + 90
-                # elif (bounce_type == 3):
-                #     Bullet.bullets[bullet_index].angle = Bullet.bullets[bullet_index].angle - 90
-                bullet_index += 1 
+                Bullet.bullets[bullet_index].two_turns_ago_x = Bullet.bullets[bullet_index].one_turn_ago_x
+                Bullet.bullets[bullet_index].two_turns_ago_y = Bullet.bullets[bullet_index].one_turn_ago_y
+                Bullet.bullets[bullet_index].one_turn_ago_x = Bullet.bullets[bullet_index].x 
+                Bullet.bullets[bullet_index].one_turn_ago_y = Bullet.bullets[bullet_index].y
+
+                collided_wall = Bullet.bullets[bullet_index].check_wall_collision()
+    
+                if collided_wall != None:
+                    Bullet.bullets[bullet_index].x =  Bullet.bullets[bullet_index].two_turns_ago_x
+                    Bullet.bullets[bullet_index].y =  Bullet.bullets[bullet_index].two_turns_ago_y
+                    bounce_type = Bullet.bullets[bullet_index].check_wall_collision_type(collided_wall)
+                    if (bounce_type == 0):
+                        Bullet.bullets[bullet_index].angle = 180 - Bullet.bullets[bullet_index].angle
+                    elif (bounce_type == 1):
+                        Bullet.bullets[bullet_index].angle = -Bullet.bullets[bullet_index].angle
+                else:
+                    bullet_index += 1 
 
             
         # Make the background Black
@@ -113,4 +122,5 @@ class Scene:
 
     def run(self):
         scenes = [self.titlescreen,self.gameplay]
+        
         scenes[self.mode]()

@@ -102,4 +102,6 @@ class Player:
             # If enough time has past since last shot, shoot
             if self.last_shot + self.shot_delay < clock_cycle:
                 self.last_shot = clock_cycle
-                Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
+                spawned_bullet = Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
+                if spawned_bullet.check_if_center_is_in_square():
+                    spawned_bullet.lifetime = 0

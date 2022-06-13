@@ -9,6 +9,9 @@ class Bullet:
         # angle the bullet was shot at and it's spawn coords
         self.x = spawn_x
         self.y = spawn_y
+        self.one_turn_ago_x = spawn_x
+        self.one_turn_ago_y = spawn_y
+
         self.angle = angle
 
         # Set color of the bullet
@@ -36,20 +39,26 @@ class Bullet:
         self.x = self.x % window.get_width()
         self.y = self.y % window.get_height()
 
-
+    def check_if_center_is_in_square(self):
+        for i in Wall.walls:
+            if (self.x > i.x) and (self.x < (i.x + i.width)) and (self.y > i.y) and (self.y < (i.y + i.length)):
+                return True
+        return False
+                
     def check_wall_collision(self):
-        wall_index = 0
-        while wall_index < len(Wall.walls) - 1:
+        for wall in Wall.walls:
+            if(self.x > (wall.x - self.radius) and self.x < (wall.x + wall.width + self.radius) and self.y >  (wall.y - self.radius) and self.y < wall.y + wall.length + self.radius):
+                return wall
+        return None
 
-            if (self.x > (Wall.walls[wall_index].x - self.radius) and self.x < (Wall.walls[wall_index].x + Wall.walls[wall_index].width + self.radius) and self.y >  (Wall.walls[wall_index].y - self.radius) and self.y < Wall.walls[wall_index].y + Wall.walls[wall_index].length + self.radius):
-                # collided
-                if ((self.x + self.radius) < (Wall.walls[wall_index].x)) or ((self.x - self.radius) < (Wall.walls[wall_index].x + Wall.walls[wall_index].width )):
-                    return 2
-                return 1
+    def check_wall_collision_type(self,wall):
+        if ((self.y + self.radius) > (wall.y + wall.length)) or (self.y - self.radius) < (wall.y):
+            return 1
+        else:
+            return 0
 
-            else:
-                wall_index += 1
-        return 0
+
+            
 
 
     def draw(self,window):
