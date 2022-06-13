@@ -80,8 +80,13 @@ class Scene:
             else:
                 # otherwise have it move accordingly and move onto the next bullet
                 Bullet.bullets[bullet_index].move(self.window)
-                if (Bullet.bullets[bullet_index].check_wall_collision()):
-                     Bullet.bullets[bullet_index].angle = - Bullet.bullets[bullet_index].angle
+                bounce_type = Bullet.bullets[bullet_index].check_wall_collision()
+                if (bounce_type == 1):
+                    Bullet.bullets[bullet_index].angle = - Bullet.bullets[bullet_index].angle
+                elif (bounce_type == 2):
+                    Bullet.bullets[bullet_index].angle = Bullet.bullets[bullet_index].angle + 90
+                # elif (bounce_type == 3):
+                #     Bullet.bullets[bullet_index].angle = Bullet.bullets[bullet_index].angle - 90
                 bullet_index += 1 
 
             

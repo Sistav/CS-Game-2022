@@ -43,11 +43,13 @@ class Bullet:
 
             if (self.x > (Wall.walls[wall_index].x - self.radius) and self.x < (Wall.walls[wall_index].x + Wall.walls[wall_index].width + self.radius) and self.y >  (Wall.walls[wall_index].y - self.radius) and self.y < Wall.walls[wall_index].y + Wall.walls[wall_index].length + self.radius):
                 # collided
-                return True
+                if ((self.x + self.radius) < (Wall.walls[wall_index].x)) or ((self.x - self.radius) < (Wall.walls[wall_index].x + Wall.walls[wall_index].width )):
+                    return 2
+                return 1
 
             else:
                 wall_index += 1
-        return False
+        return 0
 
 
     def draw(self,window):
