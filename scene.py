@@ -1,17 +1,29 @@
 import pygame
 from bullet import *
 from player import *
+from wall import * 
 
 class Scene:
     def __init__(self,start_type):
-        self.window = pygame.display.set_mode((1280, 720))
+        self.window = pygame.display.set_mode((800, 800))
 
         self.background_color = (0,0,0)
         self.text_color = (255,255,255)
 
         self.fontsize = 32 
-
+        
+        
         self.mode = start_type
+        
+        spawnpoints = Wall.generate(self.window.get_width(),self.window.get_height())
+
+        for i in range(len(Player.players)):
+            choice = random.randint(0,len(spawnpoints)-1)
+            spawn = spawnpoints[choice]
+            del spawnpoints[choice]
+            Player.players[i].x = spawn[0]
+            Player.players[i].y = spawn[1]
+            Player.players[i].angle = random.randint(0,360)
 
 
     def titlescreen(self):
@@ -52,7 +64,7 @@ class Scene:
             Player.players[i].check_shot(keys,self.clock_cycle)
             Player.players[i].check_colliosion()
         
-        
+
         bullet_index = 0
         while bullet_index < len(Bullet.bullets):
             # If the bullet has expired past it's lifetime...
@@ -62,12 +74,17 @@ class Scene:
             else:
                 # otherwise have it move accordingly and move onto the next bullet
                 Bullet.bullets[bullet_index].move(self.window)
+                print(Bullet.bullets[bullet_index].check_wall_collision())
                 bullet_index += 1 
 
             
         # Make the background Black
         self.window.fill(self.background_color)
 
+        Wall.delete(self.clock_cycle)
+        
+        for i in range(len(Wall.walls)):
+            Wall.walls[i].draw(self.window)
 
         # Draw out each player's sprite 
         for i in range(len(Player.players)):
@@ -76,7 +93,10 @@ class Scene:
         # Draw out the bullets
         for i in range(len(Bullet.bullets)):
             Bullet.bullets[i].draw(self.window)
+
         
+        
+
         self.window.blit(text, textRect)
 
     def run(self):

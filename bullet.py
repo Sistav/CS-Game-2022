@@ -1,5 +1,6 @@
 import math
 import pygame
+from wall import *
 class Bullet:
     bullets = []
     def __init__(self,spawn_x,spawn_y,angle, color,spawn_tick):
@@ -35,7 +36,31 @@ class Bullet:
         self.x = self.x % window.get_width()
         self.y = self.y % window.get_height()
 
-        
+
+    def check_wall_collision(self):
+        wall_index = 0
+        while wall_index < len(Wall.walls):
+
+            dist_x = abs(self.x - Wall.walls[wall_index].x - Wall.walls[wall_index].width/2);
+            dist_y = abs(self.y - Wall.walls[wall_index].y - Wall.walls[wall_index].length/2);
+
+            if (dist_x > (Wall.walls[wall_index].width/2 + self.radius)) or (dist_y > (Wall.walls[wall_index].length / 2 + self.radius)):
+                wall_index += 1 
+            
+            if (dist_x <= (Wall.walls[wall_index].width/2)) or (dist_y <= (Wall.walls[wall_index].length/2)): 
+                # collided
+               return True
+            
+            dx = dist_x  -Wall.walls[wall_index].width / 2
+            dy = dist_y - Wall.walls[wall_index].length / 2
+
+            if ((dx ** 2) + (dy ** 2) <= (self.radius ** 2)):
+                # collided
+                return True
+
+            else:
+                wall_index += 1
+
 
     def draw(self,window):
         # Draw the bullet

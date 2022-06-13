@@ -1,6 +1,7 @@
 import pygame
 from player import *
 from scene import *
+from wall import *
 
 pygame.init()
 pygame.display.set_caption('Tank Game')
@@ -15,12 +16,12 @@ player1 = Player(player1_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],(255, 0
 player2 = Player(player2_movement,pygame.K_SLASH,[pygame.K_COMMA,pygame.K_PERIOD],(0, 0, 255))
 
 
- # How many ticks per second
+# How many ticks per second
 tickrate = 60
 # Please keep this at 0, this is used for bullet lifetime counts
 clock_cycle = 0
 
-scene_manager = Scene(0)
+scene_manager = Scene(1)
 
 run = True
 while run:

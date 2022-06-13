@@ -62,6 +62,7 @@ class Player:
             self.x = self.x % window.get_width()
             self.y = self.y % window.get_height()
 
+
     def check_colliosion(self):
         bullet_index = 0
         while bullet_index < len(Bullet.bullets):
@@ -92,6 +93,6 @@ class Player:
     def check_shot(self,keys,clock_cycle):
         if keys[self.shoot]:
             # If enough time has past since last shot, shoot
-            if  self.last_shot + self.shot_delay < clock_cycle :
+            if self.last_shot + self.shot_delay < clock_cycle:
                 self.last_shot = clock_cycle
                 Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
