@@ -39,7 +39,7 @@ class Bullet:
 
     def check_wall_collision(self):
         wall_index = 0
-        while wall_index < len(Wall.walls):
+        while wall_index < len(Wall.walls) - 1:
 
             dist_x = abs(self.x - Wall.walls[wall_index].x - Wall.walls[wall_index].width/2);
             dist_y = abs(self.y - Wall.walls[wall_index].y - Wall.walls[wall_index].length/2);
@@ -60,6 +60,7 @@ class Bullet:
 
             else:
                 wall_index += 1
+        return False
 
 
     def draw(self,window):

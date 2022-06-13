@@ -60,9 +60,15 @@ class Scene:
         
         # Check player movement and if a bullet was shot
         for i in range(len(Player.players)):
+            old_player_x = Player.players[i].x
+            old_player_y = Player.players[i].y
             Player.players[i].check_movement(keys,self.window)
+            if Player.players[i].check_wall_collision():
+                print("wakked")
+                Player.players[i].x = old_player_x
+                Player.players[i].y = old_player_y
             Player.players[i].check_shot(keys,self.clock_cycle)
-            Player.players[i].check_colliosion()
+            Player.players[i].check_bullet_colliosion()
         
 
         bullet_index = 0

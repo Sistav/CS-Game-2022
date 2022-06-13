@@ -1,6 +1,7 @@
 import pygame
 import math
 from bullet import *
+
 class Player:
     players = []
     def __init__(self,movement,shoot,aim,color):
@@ -18,7 +19,7 @@ class Player:
         self.shoot = shoot
     
         # Set Players velocity
-        self.velocity = 5
+        self.velocity = 3
 
         # Set starting position
         self.x = 10 
@@ -26,7 +27,7 @@ class Player:
 
         # Set default angle and turn speed 
         self.angle = 0 
-        self.aim_speed = 1
+        self.aim_speed = 4
 
         # Set Size for player sprites
         self.radius = 20        
@@ -62,8 +63,14 @@ class Player:
             self.x = self.x % window.get_width()
             self.y = self.y % window.get_height()
 
+    def check_wall_collision(self):
+        for wall in Wall.walls:
+            if(self.x > (wall.x - self.radius) and self.x < (wall.x + wall.width + self.radius) and self.y >  (wall.y - self.radius) and self.y < wall.y + wall.length + self.radius):
+                return True
+        return False
 
-    def check_colliosion(self):
+        
+    def check_bullet_colliosion(self):
         bullet_index = 0
         while bullet_index < len(Bullet.bullets):
             distance = (Bullet.bullets[bullet_index].x - self.x) ** 2 + (Bullet.bullets[bullet_index].y - self.y) ** 2;
@@ -87,7 +94,7 @@ class Player:
         pygame.draw.circle(window,self.color,(self.x, self.y),self.radius)
 
         # Draw cannon & cannon head
-        pygame.draw.circle(window,self.color,(self.cannon_end_x, self.cannon_end_y),self.cannon_width)
+        # pygame.draw.ciarcle(window,self.color,(self.cannon_end_x, self.cannon_end_y),self.cannon_width)
         pygame.draw.line(window,self.color,(self.x, self.y), (self.cannon_end_x, self.cannon_end_y),self.cannon_width)
 
     def check_shot(self,keys,clock_cycle):
