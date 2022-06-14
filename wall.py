@@ -25,7 +25,8 @@ class Wall:
 
     # This generates 
     def generate(width,length):
-        no_wall_area = []
+        Wall.no_wall_area = []
+        Wall.walls = []
         # This is the ratio of non spawned walls to spawned walls 
         # For example 2 would be 50%, 3 would be 33%
         # Must be int
@@ -48,9 +49,9 @@ class Wall:
                         # This finds the center of the area that the wall would have spawned in 
                         # and adds those co-ords into a list of safe areas for the players to spawn in.
                         # It does this by taking the 2 corner co-ords and dividing them by 2 to get the center
-                        no_wall_area.append(((x+(x+wall_width))/2,((y+(y+wall_length))/2)))
+                        Wall.no_wall_area.append(((x+(x+wall_width))/2,((y+(y+wall_length))/2)))
+
         # Send it back to the main game for spawning players in  
-        return no_wall_area
                 
     # This deletes a random wall from the game until there are no walls left
     def delete(clock_cycle):

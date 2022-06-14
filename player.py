@@ -84,14 +84,14 @@ class Player:
 
             # Collision
             if (distance <= radius):
-                print("HIT")
-
+                del Player.living_players[Player.living_players.index(self)]
                 # delete the bullet
                 del Bullet.bullets[bullet_index]
             else:
                 # move onto the next bullet
                 bullet_index += 1 
-   
+    
+
     def check_shot(self,keys,clock_cycle):
         if keys[self.shoot]:
             # If enough time has past since last shot, shoot

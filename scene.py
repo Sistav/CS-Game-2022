@@ -59,23 +59,29 @@ class Scene:
                     
     def gameplay(self,first_time = False):
         if first_time:
-            
+            Wall.no_wall_area = []
+            Bullet.bullets = []
             self.background_color = (0,0,0)
 
             # Turn up the music
             pygame.mixer.music.set_volume(1)
             
-            # Set the font
+            Player.living_players = Player.players.copy()
 
-            spawnpoints = Wall.generate(self.window.get_width(),self.window.get_height())
+            
+            while (len(Wall.no_wall_area) < len( Player.players)):
+                Wall.generate(self.window.get_width(),self.window.get_height())
 
-            for i in range(len(Player.players)):
-                choice = random.randint(0,len(spawnpoints)-1)
-                spawn = spawnpoints[choice]
-                del spawnpoints[choice]
-                Player.players[i].x = spawn[0]
-                Player.players[i].y = spawn[1]
-                Player.players[i].angle = random.randint(0,360)
+
+            for i in range(len(Player.living_players)):
+                choice = random.randint(0,len(Wall.no_wall_area)-1)
+
+                spawn = Wall.no_wall_area[choice]
+                del Wall.no_wall_area[choice]
+
+                Player.living_players[i].x = spawn[0]
+                Player.living_players[i].y = spawn[1]
+                Player.living_players[i].angle = random.randint(0,360)
         
 
             self.text_color = (255,255,255)
@@ -84,41 +90,55 @@ class Scene:
 
             self.font = pygame.font.Font('freesansbold.ttf', self.fontsize)
 
+        bottom_score_text_string = ''
+        for i in range(len(Player.players)):
+           bottom_score_text_string += str(Player.players[i].score)
+           if i < len(Player.players) - 1:
+            bottom_score_text_string += " - "
+
         # create a text surface object,
         # on which text is drawn on it.
-        text = self.font.render('Score', True, self.text_color, self.background_color)
-        
+        top_score_text = self.font.render('Score:', True, self.text_color, self.background_color)
+        bottom_score_text = self.font.render(bottom_score_text_string, True, self.text_color, self.background_color)
+
         # create a rectangular object for the
         # text surface object
-        textRect = text.get_rect()
-        
+        top_text_Rect = top_score_text.get_rect()
+        bottom_text_Rect = bottom_score_text.get_rect()
+
         # set the center of the rectangular object.
-        textRect.center = (self.window.get_width()//2,self.fontsize)
+        top_text_Rect.center = (self.window.get_width()//2,self.fontsize)
+        bottom_text_Rect.center = (self.window.get_width()//2,self.fontsize*2)
 
         # Get a bool of every key pressed
         keys = pygame.key.get_pressed()
         
         # Check player movement and if a bullet was shot
-        for i in range(len(Player.players)):
+        player_iterator = 0
+        while player_iterator < (len(Player.living_players)):
             # Set the last known safe position for the player to be in
-            old_player_x = Player.players[i].x
-            old_player_y = Player.players[i].y
+            old_player_x = Player.living_players[player_iterator].x
+            old_player_y = Player.living_players[player_iterator].y
 
             # Let the player move
-            Player.players[i].check_movement(keys,self.window)
+            Player.living_players[player_iterator].check_movement(keys,self.window)
 
             # If the player was stupid enough to hit a wall
-            if Player.players[i].check_wall_collision():
+            if Player.living_players[player_iterator].check_wall_collision():
                 # Send them back to the old co-ord
-                Player.players[i].x = old_player_x
-                Player.players[i].y = old_player_y
+                Player.living_players[player_iterator].x = old_player_x
+                Player.living_players[player_iterator].y = old_player_y
 
             # Check if the player shot
-            Player.players[i].check_shot(keys,self.clock_cycle)
+            Player.living_players[player_iterator].check_shot(keys,self.clock_cycle)
 
             # Check if the player was hit
-            Player.players[i].check_bullet_collision()
-        
+            Player.living_players[player_iterator].check_bullet_collision()
+            player_iterator += 1
+
+        if len(Player.living_players) == 1:
+            Player.players[Player.players.index(Player.living_players[0])].score += 1
+            self.last_mode = None
 
         bullet_index = 0
         while bullet_index < len(Bullet.bullets):
@@ -171,15 +191,16 @@ class Scene:
             Wall.walls[i].draw(self.window)
 
         # Draw out each player's sprite 
-        for i in range(len(Player.players)):
-            Player.players[i].draw(self.window)
+        for i in range(len(Player.living_players)):
+            Player.living_players[i].draw(self.window)
         
         # Draw out the bullets
         for i in range(len(Bullet.bullets)):
             Bullet.bullets[i].draw(self.window)
 
         # Show the text onscreen
-        self.window.blit(text, textRect)
+        self.window.blit(top_score_text, top_text_Rect)
+        self.window.blit(bottom_score_text, bottom_text_Rect)
 
     def run(self):
         # Check if the scene needs to be initialized
