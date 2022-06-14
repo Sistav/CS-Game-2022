@@ -4,9 +4,9 @@
 To begin, run main.py in the root folder (make sure the game is unzipped).<br/>
 Make sure you have the newest version of Python 3 and pygame installed. 
 
-##Authors
-Georgios Dialynas-Vatsis
-Jeush Stanly
+## Authors
+Georgios Dialynas-Vatsis<br/>
+Jeush Stanly<br/>
 
 
 ## Controls
