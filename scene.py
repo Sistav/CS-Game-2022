@@ -5,26 +5,13 @@ from wall import *
 
 class Scene:
     def __init__(self,start_type):
-        self.window = pygame.display.set_mode((800, 800))
+        self.width = 1280
+        self.height = 720
 
-        self.background_color = (0,0,0)
-        self.text_color = (255,255,255)
+        self.window = pygame.display.set_mode((self.width,self.height))
 
-        self.fontsize = 32 
-        
-        
         self.mode = start_type
-        
-        spawnpoints = Wall.generate(self.window.get_width(),self.window.get_height())
-
-        for i in range(len(Player.players)):
-            choice = random.randint(0,len(spawnpoints)-1)
-            spawn = spawnpoints[choice]
-            del spawnpoints[choice]
-            Player.players[i].x = spawn[0]
-            Player.players[i].y = spawn[1]
-            Player.players[i].angle = random.randint(0,360)
-
+        self.last_mode = None
 
     def titlescreen(self,first_time = False):
         # titlescreen = pygame.image.load('titlescreen.png')
@@ -56,13 +43,33 @@ class Scene:
             screen.blit(movie_screen,(0,0))
             pygame.display.update()
                     
-    def gameplay(self):
-        # Turn up the music
-        pygame.mixer.music.set_volume(1)
+    def gameplay(self,first_time = False):
+        if first_time:
+            
+            self.background_color = (0,0,0)
+
+            # Turn up the music
+            pygame.mixer.music.set_volume(1)
+            
+            # Set the font
+
+            spawnpoints = Wall.generate(self.window.get_width(),self.window.get_height())
+
+            for i in range(len(Player.players)):
+                choice = random.randint(0,len(spawnpoints)-1)
+                spawn = spawnpoints[choice]
+                del spawnpoints[choice]
+                Player.players[i].x = spawn[0]
+                Player.players[i].y = spawn[1]
+                Player.players[i].angle = random.randint(0,360)
         
-        # Set the font
-        self.font = pygame.font.Font('freesansbold.ttf', self.fontsize)
-        
+
+            self.text_color = (255,255,255)
+
+            self.fontsize = 32 
+
+            self.font = pygame.font.Font('freesansbold.ttf', self.fontsize)
+
         # create a text surface object,
         # on which text is drawn on it.
         text = self.font.render('Score', True, self.text_color, self.background_color)
@@ -161,6 +168,11 @@ class Scene:
         self.window.blit(text, textRect)
 
     def run(self):
-        # if self.mode = 
+        # Check if the scene needs to be initialized
+        first_time = (self.mode != self.last_mode)
+        self.last_mode = self.mode 
+
         scenes = [self.titlescreen,self.gameplay]
-        scenes[self.mode]()
+
+        # Run the scene
+        scenes[self.mode](first_time)

@@ -1,7 +1,7 @@
 import pygame
 import random
 class Wall:
-    divisor = 8
+    divisor = 10
 
     # Time in frames for how long to delete a wall
     lifetime = 5 * 60
@@ -24,7 +24,7 @@ class Wall:
         
 
     # This generates 
-    def generate(length,width):
+    def generate(width,length):
         no_wall_area = []
         # This is the ratio of non spawned walls to spawned walls 
         # For example 2 would be 50%, 3 would be 33%
