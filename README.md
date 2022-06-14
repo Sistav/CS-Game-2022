@@ -7,6 +7,7 @@ Make sure you have the newest version of Python 3 and pygame installed.
 ## Authors
 Georgios Dialynas-Vatsis<br/>
 Jeush Stanly<br/>
+Eric Premakumar<br/>
 
 
 ## Controls
