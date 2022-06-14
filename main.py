@@ -55,7 +55,7 @@ pygame.mixer.music.set_volume(0)
 
 # Gameloop
 run = True
-while run:
+while (run):
 
     # Keeps an int of how long since the game was booted.
     # This will eventually break the code in 4,874,520,144.63 years, so if you think that needs a check, I hope you have time to wait for it to error out.
@@ -64,7 +64,7 @@ while run:
     
     # Basic pygame window handling
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if (event.type == pygame.QUIT):
             run = False
 
     # Start the first scene up

@@ -55,9 +55,9 @@ class Player:
             self.angle += self.aim_speed * (keys[self.aim_left] - keys[self.aim_right]) 
 
             # Make sure that angle is between 0 and 359 for consistancy.
-            if self.angle < 0:
+            if (self.angle < 0):
                 self.angle += 360 
-            elif self.angle > 360:
+            elif (self.angle > 360):
                 self.angle %= 360
 
             # Create Wrapping Effect
@@ -74,7 +74,7 @@ class Player:
     def check_bullet_collision(self):
         bullet_index = 0
         # Check every bullet against the player for collision
-        while bullet_index < len(Bullet.bullets):
+        while (bullet_index < len(Bullet.bullets)):
 
             # Calculate the distance between the two points
             distance = (Bullet.bullets[bullet_index].x - self.x) ** 2 + (Bullet.bullets[bullet_index].y - self.y) ** 2;
@@ -93,16 +93,16 @@ class Player:
     
 
     def check_shot(self,keys,clock_cycle):
-        if keys[self.shoot]:
+        if (keys[self.shoot]):
             # If enough time has past since last shot, shoot
-            if self.last_shot + self.shot_delay < clock_cycle:
+            if (self.last_shot + self.shot_delay < clock_cycle):
                 self.last_shot = clock_cycle
 
                 # Save the current bullet for checks
                 spawned_bullet = Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
 
                 # If the bullet was spawned in a wall, delete it.
-                if spawned_bullet.check_if_center_is_in_a_wall():
+                if (spawned_bullet.check_if_center_is_in_a_wall()):
                     spawned_bullet.lifetime = 0
                 # If the bullet was immediatly spawned inside a will kill it
          

@@ -52,7 +52,7 @@ class Scene:
         
         # If the time has passed, set the next frame in motion
         if ((self.start_time + self.animation_delay) < self.clock_cycle):  
-            if self.current_frame < self.max_frames:
+            if (self.current_frame < self.max_frames):
                 self.current_frame += 1
                 self.start_time = self.clock_cycle
         
@@ -69,15 +69,15 @@ class Scene:
         play_bottom_y = 447
 
         # Check if the mouse is clicked and if we're on the last frame
-        if pygame.mouse.get_pressed()[0] and self.current_frame == self.max_frames:
+        if (pygame.mouse.get_pressed()[0] and self.current_frame == self.max_frames):
             # If so, get the locations
             mouse_location = pygame.mouse.get_pos()
             # If the mouse was on the play button
-            if (mouse_location[0] > play_left_x and mouse_location[0] < play_right_x) and (mouse_location[1] > play_top_y and mouse_location[1] < play_bottom_y):
+            if ((mouse_location[0] > play_left_x and mouse_location[0] < play_right_x) and (mouse_location[1] > play_top_y and mouse_location[1] < play_bottom_y)):
                 self.mode = 1
 
             # If the mouse was on the exit button
-            elif (mouse_location[0] > exit_left_x and mouse_location[0] < exit_right_x) and (mouse_location[1] > exit_top_y and mouse_location[1] < exit_bottom_y):
+            elif ((mouse_location[0] > exit_left_x and mouse_location[0] < exit_right_x) and (mouse_location[1] > exit_top_y and mouse_location[1] < exit_bottom_y)):
                 pygame.quit()
                 exit()
                                
@@ -186,7 +186,7 @@ class Scene:
                 collided_wall = Bullet.bullets[bullet_index].check_wall_collision()
     
                 # if the bullet hit a wall
-                if collided_wall != None:
+                if (collided_wall != None):
                     # Move the bullet back so it doesn't clip into the wall
                     Bullet.bullets[bullet_index].x =  Bullet.bullets[bullet_index].two_turns_ago_x
                     Bullet.bullets[bullet_index].y =  Bullet.bullets[bullet_index].two_turns_ago_y
