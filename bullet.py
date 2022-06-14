@@ -9,9 +9,12 @@ class Bullet:
         # angle the bullet was shot at and it's spawn coords
         self.x = spawn_x
         self.y = spawn_y
+
+        # This will be used to stop bullets from glitching into the walls, its essentailly a fallback
         self.one_turn_ago_x = spawn_x
         self.one_turn_ago_y = spawn_y
 
+        # Angle of the bullet in degrees
         self.angle = angle
 
         # Set color of the bullet

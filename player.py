@@ -66,19 +66,30 @@ class Player:
 
     def check_wall_collision(self):
         for wall in Wall.walls:
+            # Checks each side on every wall for collision with the player
             if(self.x > (wall.x - self.radius) and self.x < (wall.x + wall.width + self.radius) and self.y >  (wall.y - self.radius) and self.y < wall.y + wall.length + self.radius):
                 return True
         return False
 
     def check_bullet_collision(self):
         bullet_index = 0
+        # Check every bullet against the player for collision
         while bullet_index < len(Bullet.bullets):
+
+            # Calculate the distance between the two points
             distance = (Bullet.bullets[bullet_index].x - self.x) ** 2 + (Bullet.bullets[bullet_index].y - self.y) ** 2;
+            
+            # Adds up the radius'
             radius = (Bullet.bullets[bullet_index].radius + self.radius) ** 2;
+
+            # Collision
             if (distance <= radius):
                 print("HIT")
+
+                # delete the bullet
                 del Bullet.bullets[bullet_index]
             else:
+                # move onto the next bullet
                 bullet_index += 1 
    
     def check_shot(self,keys,clock_cycle):
@@ -86,8 +97,11 @@ class Player:
             # If enough time has past since last shot, shoot
             if self.last_shot + self.shot_delay < clock_cycle:
                 self.last_shot = clock_cycle
-                
+
+                # Save the current bullet for checks
                 spawned_bullet = Bullet(self.cannon_end_x,self.cannon_end_y,self.angle,self.color,clock_cycle)
+
+                # If the bullet was spawned in a wall, delete it.
                 if spawned_bullet.check_if_center_is_in_a_wall():
                     spawned_bullet.lifetime = 0
                 # If the bullet was immediatly spawned inside a will kill it

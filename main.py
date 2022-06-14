@@ -25,25 +25,36 @@ scene_manager = Scene(1)
 
 # Sets up the music and sets the volume to zero
 song = "music_loop.wav"
+
+# Begins the mixer and loads the song
 pygame.mixer.init()
 pygame.mixer.music.load(song)
+
+# Sets the song to repeat
 pygame.mixer.music.play(loops=-1)
+
+# Minimize the volume so the intro can play
 pygame.mixer.music.set_volume(0)
 
+# Gameloop
 run = True
 while run:
 
+    # Keeps an int of how long since the game was booted.
+    # This will eventually break the code in 4,874,520,144.63 years, so if you think that needs a check, I hope you have time, to wait for it to error out.
     clock_cycle += 1
     clock.tick(tickrate)
     
-    
+    # Basic pygame window handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
+    # Start the first scene up
     scene_manager.clock_cycle = clock_cycle
     scene_manager.run()
     
+    # refresh screen
     pygame.display.flip()
 
 pygame.quit()
