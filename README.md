@@ -9,5 +9,5 @@ Make sure you have the newest version of Python 3 and pygame installed.
 | Player | Movement | Aim | Shoot |
 |:-:|:-:|:-:|:-:|
 |Red|W, A, S, D| Q & E| Spacebar |
-|Blue| Up, Down, Left, Right |Comma & Period | Slash |
+|Blue| Up, Down, Left, Right |Comma & Period | ForewardSlash |
 |Green| I, J, K, L|U & O | Enter |
