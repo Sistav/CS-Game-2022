@@ -65,7 +65,7 @@ class Scene:
         
         # create a text surface object,
         # on which text is drawn on it.
-        text = self.render('Score', True, self.text_color, self.background_color)
+        text = self.font.render('Score', True, self.text_color, self.background_color)
         
         # create a rectangular object for the
         # text surface object
