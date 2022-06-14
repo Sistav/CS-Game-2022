@@ -5,7 +5,7 @@ from wall import *
 
 # Pygame setup
 pygame.init()
-pygame.display.set_caption('Tank Game')
+pygame.display.set_caption('Tanks!')
 clock = pygame.time.Clock()
 
 
@@ -58,7 +58,7 @@ run = True
 while run:
 
     # Keeps an int of how long since the game was booted.
-    # This will eventually break the code in 4,874,520,144.63 years, so if you think that needs a check, I hope you have time, to wait for it to error out.
+    # This will eventually break the code in 4,874,520,144.63 years, so if you think that needs a check, I hope you have time to wait for it to error out.
     clock_cycle += 1
     clock.tick(tickrate)
     

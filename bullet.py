@@ -45,20 +45,20 @@ class Bullet:
     def check_if_center_is_in_a_wall(self):
         # Checks to see if the center of a circle in inside a wall
         for i in Wall.walls:
-            if (self.x > i.x) and (self.x < (i.x + i.width)) and (self.y > i.y) and (self.y < (i.y + i.length)):
+            if ((self.x > i.x) and (self.x < (i.x + i.width)) and (self.y > i.y) and (self.y < (i.y + i.length))):
                 return True
         return False
                 
     def check_wall_collision(self):
         # This checks a bullet to see if its collided with any walls, if so it returns the wall
         for wall in Wall.walls:
-            if(self.x > (wall.x - self.radius) and self.x < (wall.x + wall.width + self.radius) and self.y >  (wall.y - self.radius) and self.y < wall.y + wall.length + self.radius):
+            if((self.x > (wall.x - self.radius) and self.x < (wall.x + wall.width + self.radius) and self.y >  (wall.y - self.radius) and self.y < wall.y + wall.length + self.radius)):
                 return wall
         return None
 
     def check_wall_collision_type(self,wall):
         # Check to see if the bounce is a refelction of the x axis or the y axis
-        if ((self.y + self.radius) > (wall.y + wall.length)) or (self.y - self.radius) < (wall.y):
+        if (((self.y + self.radius) > (wall.y + wall.length)) or (self.y - self.radius) < (wall.y)):
             return 1
         else:
             return 0

@@ -30,7 +30,7 @@ class Scene:
         self.max_frames = 69
 
     def titlescreen(self,first_time = False):
-        if first_time:
+        if (first_time):
             # Set the first frame and the time it started
             self.current_frame = 1
             self.start_time = self.clock_cycle
@@ -82,7 +82,7 @@ class Scene:
                 exit()
                                
     def gameplay(self,first_time = False):
-        if first_time:
+        if (first_time):
 
             # Clear walls and bullets
             Wall.no_wall_area = []
@@ -116,7 +116,7 @@ class Scene:
         bottom_score_text_string = ''
         for i in range(len(Player.players)):
            bottom_score_text_string += str(Player.players[i].score)
-           if i < len(Player.players) - 1:
+           if (i < len(Player.players) - 1):
             bottom_score_text_string += " - "
 
         # create a text surface object,
@@ -138,7 +138,7 @@ class Scene:
         
         # Check player movement and if a bullet was shot
         player_iterator = 0
-        while player_iterator < (len(Player.living_players)):
+        while (player_iterator < (len(Player.living_players))):
             # Set the last known safe position for the player to be in
             old_player_x = Player.living_players[player_iterator].x
             old_player_y = Player.living_players[player_iterator].y
@@ -147,7 +147,7 @@ class Scene:
             Player.living_players[player_iterator].check_movement(keys,self.window)
 
             # If the player was stupid enough to hit a wall
-            if Player.living_players[player_iterator].check_wall_collision():
+            if (Player.living_players[player_iterator].check_wall_collision()):
                 # Send them back to the old co-ord
                 Player.living_players[player_iterator].x = old_player_x
                 Player.living_players[player_iterator].y = old_player_y
@@ -160,15 +160,15 @@ class Scene:
             player_iterator += 1
 
         # If there is only 1 player standing, find that player in the masterlist of players and update their score.
-        if len(Player.living_players) == 1:
+        if (len(Player.living_players) == 1):
             Player.players[Player.players.index(Player.living_players[0])].score += 1
             # Starts a new round
             self.last_mode = None
 
         bullet_index = 0
-        while bullet_index < len(Bullet.bullets):
+        while (bullet_index < len(Bullet.bullets)):
             # If the bullet has expired past it's lifetime...
-            if (Bullet.bullets[bullet_index].spawn_tick + Bullet.bullets[bullet_index].lifetime) < self.clock_cycle:
+            if ((Bullet.bullets[bullet_index].spawn_tick + Bullet.bullets[bullet_index].lifetime) < self.clock_cycle):
                 # Kill it
                 del Bullet.bullets[bullet_index]
             else:

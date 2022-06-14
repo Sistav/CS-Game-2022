@@ -43,7 +43,7 @@ class Wall:
                     y = j*(wall_length)
 
                     # Check to see if the current selected wall area is going to be a wall or a safe area
-                    if random.randint(0, upper-1) == 0:
+                    if (random.randint(0, upper-1) == 0):
                         Wall(x,y,wall_width,wall_length)
                     else:
                         # This finds the center of the area that the wall would have spawned in 
@@ -56,7 +56,7 @@ class Wall:
     # This deletes a random wall from the game until there are no walls left
     def delete(clock_cycle):
         # If there are walls left
-        if len(Wall.walls) > 0:
+        if (len(Wall.walls) > 0):
             # If enough time has passed for a wall to go
             if ((clock_cycle % Wall.lifetime) == 0):
                 # Pick a random wall and get rid of it
