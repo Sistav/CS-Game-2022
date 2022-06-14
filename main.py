@@ -41,7 +41,7 @@ clock_cycle = 0
 scene_manager = Scene(0)
 
 # Sets up the music and sets the volume to zero
-song = "music_loop.wav"
+song = "Sound\music_loop.wav"
 
 # Begins the mixer and loads the song
 pygame.mixer.init()

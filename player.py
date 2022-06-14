@@ -84,6 +84,10 @@ class Player:
 
             # Collision
             if (distance <= radius):
+                # Play the death sound effect
+                bonk_sound = pygame.mixer.Sound("Sound/bonk.wav")
+                bonk_sound.play()
+
                 del Player.living_players[Player.living_players.index(self)]
                 # delete the bullet
                 del Bullet.bullets[bullet_index]
