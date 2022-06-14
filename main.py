@@ -3,19 +3,34 @@ from player import *
 from scene import *
 from wall import *
 
+# Pygame setup
 pygame.init()
 pygame.display.set_caption('Tank Game')
 clock = pygame.time.Clock()
 
 
-# Creates the players
+# Sets controls
 player1_movement = [pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d]
 player2_movement = [pygame.K_UP,pygame.K_LEFT,pygame.K_DOWN,pygame.K_RIGHT]
 player3_movement = [pygame.K_i,pygame.K_j,pygame.K_k,pygame.K_l]
 
-player1 = Player(player1_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],(255, 0, 0))
-player2 = Player(player2_movement,pygame.K_SLASH,[pygame.K_COMMA,pygame.K_PERIOD],(0, 0, 255))
-player3 = Player(player3_movement,pygame.K_RETURN,[pygame.K_u,pygame.K_o],(0, 255, 0))
+player1_aim = [pygame.K_e,pygame.K_q]
+player2_aim = [pygame.K_COMMA,pygame.K_PERIOD]
+player3_aim = [pygame.K_o,pygame.K_u]
+
+player1_shoot = pygame.K_SPACE
+player2_shoot = pygame.K_SLASH
+player3_shoot = pygame.K_RETURN
+
+# Sets their colors
+player1_color = (255, 0, 0)
+player2_color = (0, 0, 255)
+player3_color = (0, 255, 0)
+
+# Creates the players, you can add an infite amount of players if you want to
+player1 = Player(player1_movement,player1_shoot,player1_aim,player1_color)
+player2 = Player(player2_movement,player2_shoot,player2_aim,player2_color)
+player3 = Player(player3_movement,player3_shoot,player3_aim,player3_color)
 
 
 # How many ticks per second
