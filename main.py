@@ -11,10 +11,11 @@ clock = pygame.time.Clock()
 # Creates the players
 player1_movement = [pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d]
 player2_movement = [pygame.K_UP,pygame.K_LEFT,pygame.K_DOWN,pygame.K_RIGHT]
+player3_movement = [pygame.K_i,pygame.K_j,pygame.K_k,pygame.K_l]
 
 player1 = Player(player1_movement,pygame.K_SPACE,[pygame.K_e,pygame.K_q],(255, 0, 0))
 player2 = Player(player2_movement,pygame.K_SLASH,[pygame.K_COMMA,pygame.K_PERIOD],(0, 0, 255))
-player3 = Player(player2_movement,pygame.K_SLASH,[pygame.K_COMMA,pygame.K_PERIOD],(0, 255, 0))
+player3 = Player(player3_movement,pygame.K_RETURN,[pygame.K_u,pygame.K_o],(0, 255, 0))
 
 
 # How many ticks per second
