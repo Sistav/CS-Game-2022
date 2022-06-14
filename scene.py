@@ -12,36 +12,50 @@ class Scene:
 
         self.mode = start_type
         self.last_mode = None
+        
+        self.animation_delay =  2
+
+        self.max_frames = 69
 
     def titlescreen(self,first_time = False):
-        # titlescreen = pygame.image.load('titlescreen.png')
-        # rect = titlescreen.get_rect()
-        # rect.center = self.window.get_width() // 2, self.window.get_height() // 2
-        # self.window.blit(titlescreen,rect)
-        # if pygame.mouse.get_pressed()[0]:
-        #     if (pygame.mouse.get_pos()[0] > 224 and pygame.mouse.get_pos()[0] < 591) and (pygame.mouse.get_pos()[1] > 448 and pygame.mouse.get_pos()[1] < 639):
-        #         self.mode = 1
-        #     else:
-        #         self.titlescreen()
-        if first_time == True:
-            first_time = False
-            movie = pygame.movie.Movie('Titlescreen\TANKS!.mov')
-            screen = pygame.display.set_mode(movie.get_size())
-            movie_screen = pygame.Surface(movie.get_size()).convert()
+        if first_time:
+            self.current_frame = 1
+            self.start_time = self.clock_cycle
+        
+        photo = f"Frames\{self.current_frame}.png"
+        frame = pygame.image.load(photo)
 
-        movie.set_display(movie_screen)
-        movie.play()
+        frame_rect = frame.get_rect()
+        frame_rect.center = self.window.get_width() // 2, self.window.get_height() // 2
 
+        self.window.blit(frame,frame_rect)
 
-        playing = True
-        while playing:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    movie.stop()
-                    playing = False
+        pygame.draw.rect(self.window, 'BLACK', frame_rect, 1)
+        pygame.display.update()
+        
+        if ((self.start_time + self.animation_delay) < self.clock_cycle):  
+            if self.current_frame < self.max_frames:
+                self.current_frame += 1
+                self.start_time = self.clock_cycle
+        
+        exit_left_x = 448
+        exit_top_y = 528
+        exit_right_x = 815
+        exit_bottom_y = 687
 
-            screen.blit(movie_screen,(0,0))
-            pygame.display.update()
+        play_left_x = 448
+        play_top_y = 288
+        play_right_x = 815
+        play_bottom_y = 447
+
+        if pygame.mouse.get_pressed()[0] and self.current_frame == self.max_frames:
+            mouse_location = pygame.mouse.get_pos()
+            if (mouse_location[0] > play_left_x and mouse_location[0] < play_right_x) and (mouse_location[1] > play_top_y and mouse_location[1] < play_bottom_y):
+                self.mode = 1
+            elif (mouse_location[0] > exit_left_x and mouse_location[0] < exit_right_x) and (mouse_location[1] > exit_top_y and mouse_location[1] < exit_bottom_y):
+                pygame.quit()
+                exit()
+             
                     
     def gameplay(self,first_time = False):
         if first_time:

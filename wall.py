@@ -4,7 +4,7 @@ class Wall:
     divisor = 10
 
     # Time in frames for how long to delete a wall
-    lifetime = 5 * 60
+    lifetime = 1 * 60
 
     walls = []
     def __init__(self,x,y,width,length):

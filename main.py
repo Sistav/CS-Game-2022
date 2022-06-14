@@ -21,7 +21,7 @@ tickrate = 60
 # Please keep this at 0, this is used for bullet lifetime counts
 clock_cycle = 0
 
-scene_manager = Scene(1)
+scene_manager = Scene(0)
 
 # Sets up the music and sets the volume to zero
 song = "music_loop.wav"
