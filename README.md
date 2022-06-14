@@ -5,6 +5,7 @@ To begin, run main.py in the root folder (make sure the game is unzipped).
 Make sure you have the newest version of Python 3 and pygame installed. 
 
 ## Controls
+
 | Player | Movement | Aim | Shoot |
 |:-:|:-:|:-:|:-:|:-:|
 |Red|W, A, S, D| Q & E| Spacebar|
