@@ -107,7 +107,7 @@ class Player:
 
                 # If the bullet was spawned in a wall, delete it.
                 if (spawned_bullet.check_if_center_is_in_a_wall()):
-                    spawned_bullet.lifetime = 0
+                    del Bullet.bullets[Bullet.bullets.index(spawned_bullet)]
                 # If the bullet was immediatly spawned inside a will kill it
          
     def draw(self,window):
