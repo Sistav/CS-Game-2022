@@ -160,8 +160,9 @@ class Scene:
             player_iterator += 1
 
         # If there is only 1 player standing, find that player in the masterlist of players and update their score.
-        if (len(Player.living_players) == 1):
-            Player.players[Player.players.index(Player.living_players[0])].score += 1
+        if (len(Player.living_players) <= 1):
+            if (len(Player.living_players) == 1):
+                Player.players[Player.players.index(Player.living_players[0])].score += 1
             # Starts a new round
             self.last_mode = None
 
