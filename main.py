@@ -1,3 +1,7 @@
+# Program     : Tank Game
+# Name        : Georgios Dialynas-Vatsis, Eric Premakumar, & Jeush Stanly
+# Date        : June 16, 2022
+# Description : Starts up the tank game, made for the CS Grade 12 culmanating
 import pygame
 from player import *
 from scene import *

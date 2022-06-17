@@ -1,3 +1,8 @@
+# Program     : Bullet Class
+# Name        : Georgios Dialynas-Vatsis, Eric Premakumar, & Jeush Stanly
+# Date        : June 16, 2022
+# Description : Manages bullet movement, spawn, and collision
+
 import math
 import pygame
 from wall import *

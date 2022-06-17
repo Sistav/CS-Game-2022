@@ -1,3 +1,8 @@
+# Program     : Scene Class
+# Name        : Georgios Dialynas-Vatsis, Eric Premakumar, & Jeush Stanly
+# Date        : June 16, 2022
+# Description : Manages gameplay, titlescreen, animations, and more.
+
 import pygame
 from bullet import *
 from player import *

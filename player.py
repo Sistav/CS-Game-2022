@@ -1,3 +1,7 @@
+# Program     : Player Class
+# Name        : Georgios Dialynas-Vatsis, Eric Premakumar, & Jeush Stanly
+# Date        : June 16, 2022
+# Description : Manages player movement, spawn, collision, and shooting
 import pygame
 import math
 from bullet import *
